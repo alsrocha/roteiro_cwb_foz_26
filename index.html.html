@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Roteiro de André e Ricardo por Curitiba, Morretes e Foz do Iguaçu: viagem romântica, cultural, gastronômica e visual." />
+  <title>Roteiro de André e Ricardo | Curitiba, Morretes & Foz do Iguaçu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQKCeO6TFks7cy2fWcmj5lZ3dTItiI0=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <style>
+    :root {
+      --cream: #fbf4e8;
+      --cream-2: #f1e1c9;
+      --paper: rgba(255,255,255,.82);
+      --paper-solid: #fffaf2;
+      --ink: #1d1712;
+      --muted: #756a60;
+      --green: #173f33;
+      --green-2: #285a48;
+      --gold: #c79a45;
+      --gold-2: #e1c58a;
+      --terracotta: #a65942;
+      --blue: #1b5267;
+      --shadow: 0 24px 70px rgba(29, 23, 18, .16);
+      --soft-shadow: 0 16px 44px rgba(29, 23, 18, .10);
+      --radius: 30px;
+      --radius-sm: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(199,154,69,.18), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(23,63,51,.14), transparent 34%),
+        linear-gradient(180deg, #fff9ef 0%, var(--cream) 46%, #f6ead8 100%);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; object-fit: cover; }
+    button, input { font: inherit; }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+    }
+
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: min(var(--max), calc(100% - 28px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 14px 12px 18px;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 999px;
+      background: rgba(255,255,255,.58);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 45px rgba(29,23,18,.12);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      color: var(--green);
+      white-space: nowrap;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--green), var(--gold));
+      color: white;
+      box-shadow: 0 8px 20px rgba(23,63,51,.22);
+    }
+    .nav-links { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: .84rem;
+      font-weight: 800;
+      color: rgba(29,23,18,.72);
+      transition: .25s ease;
+    }
+    .nav-links a:hover { background: var(--green); color: white; }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 132px 22px 42px;
+      overflow: hidden;
+      color: white;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.74)),
+        url('https://images.unsplash.com/photo-1597290282695-edc43d0e7129?auto=format&fit=crop&w=1900&q=85') center/cover;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 190px;
+      background: linear-gradient(180deg, transparent, var(--cream));
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 28px;
+      align-items: end;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,.48);
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      backdrop-filter: blur(12px);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .78rem;
+      font-weight: 900;
+      animation: fadeUp .8s ease both;
+    }
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      line-height: 1.03;
+      letter-spacing: -.035em;
+    }
+    h1 {
+      max-width: 930px;
+      margin: 20px 0 18px;
+      font-size: clamp(3.1rem, 8vw, 7.6rem);
+      text-shadow: 0 20px 60px rgba(0,0,0,.28);
+      animation: fadeUp .9s ease .08s both;
+    }
+    .hero p {
+      max-width: 740px;
+      margin: 0;
+      color: rgba(255,255,255,.88);
+      font-size: clamp(1.04rem, 1.6vw, 1.32rem);
+      animation: fadeUp .9s ease .16s both;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; animation: fadeUp .9s ease .24s both; }
+
+    .hero-card {
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.14);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      animation: floatIn 1s ease .3s both;
+    }
+    .hero-card strong { display: block; font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-2); }
+    .hero-card .big { margin: 8px 0 10px; font-size: 2.2rem; font-weight: 900; line-height: 1; }
+    .hero-card span { color: rgba(255,255,255,.82); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(29,23,18,.08);
+      background: var(--green);
+      color: white;
+      font-weight: 900;
+      box-shadow: 0 13px 32px rgba(23,63,51,.24);
+      transition: .22s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 18px 42px rgba(23,63,51,.28); }
+    .btn.secondary { background: white; color: var(--green); }
+    .btn.gold { background: linear-gradient(135deg, var(--gold), #d9b66b); color: #251a08; }
+    .btn.ghost { background: rgba(255,255,255,.14); color: white; border-color: rgba(255,255,255,.42); }
+    .btn.small { padding: 9px 12px; font-size: .84rem; box-shadow: none; }
+
+    main { position: relative; z-index: 1; }
+    section { padding: 82px 22px; }
+    .wrap { width: min(var(--max), 100%); margin: 0 auto; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr .85fr;
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+    h2 { font-size: clamp(2.2rem, 5vw, 4.6rem); color: var(--green); }
+    h3 { font-size: clamp(1.55rem, 2.7vw, 2.2rem); color: var(--green); }
+    h4 { font-size: 1.22rem; color: var(--green); letter-spacing: -.02em; }
+    .lead { color: var(--muted); margin: 0; font-size: 1.04rem; }
+
+    .grid { display: grid; gap: 22px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(29,23,18,.08);
+      border-radius: var(--radius);
+      background: var(--paper);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--soft-shadow);
+      transition: .28s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .card-img { height: 250px; }
+    .card-body { padding: 24px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: max-content;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(199,154,69,.17);
+      color: #795517;
+      font-size: .76rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .muted { color: var(--muted); }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(23,63,51,.09);
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .stats {
+      margin-top: -28px;
+      position: relative;
+      z-index: 5;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat {
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.52);
+      border-radius: 24px;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--soft-shadow);
+    }
+    .stat strong { display: block; font-size: 1.7rem; color: var(--green); line-height: 1; }
+    .stat span { font-size: .86rem; color: var(--muted); font-weight: 700; }
+
+    .timeline { display: grid; gap: 20px; }
+    .day-card {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 20px;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(29,23,18,.08);
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--soft-shadow);
+      transition: .25s ease;
+    }
+    .day-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .date-badge {
+      min-height: 118px;
+      padding: 16px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--green), var(--green-2));
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .date-badge small { font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-2); }
+    .date-badge strong { font-size: 2rem; line-height: 1; }
+    .periods {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .period {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(246,234,216,.72);
+      border: 1px solid rgba(29,23,18,.06);
+    }
+    .period strong { display: block; color: var(--terracotta); margin-bottom: 5px; }
+    .note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--gold);
+      border-radius: 12px;
+      background: rgba(199,154,69,.12);
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .feature {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      padding: 32px;
+      color: white;
+      background-position: center;
+      background-size: cover;
+    }
+    .feature::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.72));
+    }
+    .feature > * { position: relative; z-index: 2; }
+    .feature h3 { color: white; }
+    .feature .tag { background: rgba(255,255,255,.18); color: var(--gold-2); }
+
+    .literary {
+      background:
+        linear-gradient(135deg, rgba(23,63,51,.96), rgba(35,84,65,.92)),
+        url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1600&q=80') center/cover;
+      color: white;
+    }
+    .literary h2, .literary h3, .literary h4 { color: white; }
+    .literary .lead, .literary .muted { color: rgba(255,255,255,.78); }
+    .literary .card { background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); color: white; }
+    .literary .chip { background: rgba(255,255,255,.14); color: white; }
+
+    .creator-card {
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(29,23,18,.08);
+      background: linear-gradient(135deg, rgba(255,255,255,.88), rgba(241,225,201,.74));
+      box-shadow: var(--soft-shadow);
+      transition: .25s ease;
+    }
+    .creator-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .creator-card strong { color: var(--terracotta); }
+    .script {
+      margin-top: 14px;
+      padding: 15px;
+      border-radius: 18px;
+      background: rgba(23,63,51,.08);
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    #map {
+      height: 620px;
+      border-radius: var(--radius);
+      border: 8px solid rgba(255,255,255,.82);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      z-index: 1;
+    }
+    .leaflet-popup-content-wrapper { border-radius: 18px; }
+    .popup-title { font-weight: 900; color: var(--green); font-size: 1rem; }
+    .popup-type { color: var(--muted); margin: 2px 0 10px; }
+    .popup-btn {
+      display: inline-block;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: var(--green);
+      color: white !important;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .cost-table {
+      width: 100%;
+      overflow: hidden;
+      border-collapse: collapse;
+      border-radius: var(--radius);
+      background: var(--paper-solid);
+      box-shadow: var(--shadow);
+    }
+    .cost-table th, .cost-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(29,23,18,.08);
+      vertical-align: top;
+    }
+    .cost-table th { background: var(--green); color: white; }
+    .cost-table tr:last-child td { border-bottom: 0; }
+
+    .quote-band {
+      padding: 96px 22px;
+      background:
+        linear-gradient(180deg, rgba(251,244,232,.2), rgba(251,244,232,.85)),
+        url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80') center/cover fixed;
+      text-align: center;
+    }
+    .quote {
+      width: min(940px, 100%);
+      margin: 0 auto;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.2vw, 4.1rem);
+      line-height: 1.1;
+      color: var(--green);
+      text-shadow: 0 12px 35px rgba(255,255,255,.45);
+    }
+
+    .footer {
+      padding: 46px 22px;
+      background: var(--ink);
+      color: white;
+    }
+    .footer .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .footer p { margin: 5px 0 0; color: rgba(255,255,255,.68); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(28px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .reveal { opacity: 0; transform: translateY(26px); transition: .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .hero-inner, .section-head { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .grid-2, .grid-3, .grid-4, .stats-grid { grid-template-columns: 1fr; }
+      .periods { grid-template-columns: 1fr; }
+      .day-card { grid-template-columns: 1fr; }
+      section { padding: 66px 18px; }
+      .hero { padding: 116px 18px 42px; }
+      #map { height: 470px; }
+      .footer .wrap { display: block; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <nav class="nav">
+    <a class="brand" href="#top" aria-label="Início">
+      <span class="brand-mark">✦</span>
+      <span>André & Ricardo</span>
+    </a>
+    <div class="nav-links">
+      <a href="#roteiro">Roteiro</a>
+      <a href="#hoteis">Hotéis</a>
+      <a href="#morretes">Morretes</a>
+      <a href="#literaria">Curitiba Literária</a>
+      <a href="#gastronomia">Gastronomia</a>
+      <a href="#conteudo">Reels/TikTok</a>
+      <a href="#mapa">Mapa</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">05 a 14 de junho · Curitiba · Morretes · Foz</span>
+        <h1>Roteiro de André e Ricardo</h1>
+        <p>Uma viagem romântica e cultural pelo Sul do Brasil: livrarias charmosas, cafés, trem pela Serra do Mar, Mata Atlântica, Cataratas do Iguaçu e experiências pensadas para virar memória e conteúdo.</p>
+        <div class="hero-actions">
+          <a class="btn gold" href="#roteiro">Explorar roteiro</a>
+          <a class="btn ghost" href="#mapa">Ver mapa interativo</a>
+          <a class="btn ghost" href="#conteudo">Modo Instagram/TikTok</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <strong>Viagem premium</strong>
+        <div class="big">10 dias</div>
+        <span>Curitiba, Morretes e Foz do Iguaçu com foco em casal, cultura, gastronomia, natureza e storytelling visual.</span>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats">
+      <div class="wrap stats-grid">
+        <div class="stat reveal"><strong>3</strong><span>destinos principais</span></div>
+        <div class="stat reveal"><strong>2</strong><span>hotéis reais</span></div>
+        <div class="stat reveal"><strong>1</strong><span>passeio de trem cênico</span></div>
+        <div class="stat reveal"><strong>∞</strong><span>ideias de conteúdo</span></div>
+      </div>
+    </section>
+
+    <section id="resumo">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Visão geral da viagem</h2>
+          <p class="lead">O roteiro foi desenhado para equilibrar atrações clássicas, momentos românticos, experiências culturais e oportunidades de criar fotos e vídeos com estética de blog de viagem premium.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card reveal">
+            <img class="card-img" src="https://images.unsplash.com/photo-1601210975190-6a8d2f3f650c?auto=format&fit=crop&w=1200&q=85" alt="Curitiba">
+            <div class="card-body">
+              <span class="tag">05 a 09/06</span>
+              <h3>Curitiba</h3>
+              <p class="muted">Base no Batel, com Jardim Botânico, MON, Centro Histórico, Ópera de Arame, Parque Tanguá, cafés e livrarias.</p>
+              <div class="meta"><span class="chip">Cultura</span><span class="chip">Cafés</span><span class="chip">Livrarias</span></div>
+            </div>
+          </article>
+          <article class="card reveal">
+            <img class="card-img" src="https://images.unsplash.com/photo-1519818187420-8e49de7adeef?auto=format&fit=crop&w=1200&q=85" alt="Trem na Serra do Mar">
+            <div class="card-body">
+              <span class="tag">07/06</span>
+              <h3>Morretes</h3>
+              <p class="muted">Passeio de trem pela Serra do Mar, ida com a Serra Verde Express, volta de van e almoço com barreado.</p>
+              <div class="meta"><span class="chip">Trem</span><span class="chip">Mata Atlântica</span><span class="chip">Barreado</span></div>
+            </div>
+          </article>
+          <article class="card reveal">
+            <img class="card-img" src="https://images.unsplash.com/photo-1597290282695-edc43d0e7129?auto=format&fit=crop&w=1200&q=85" alt="Cataratas do Iguaçu">
+            <div class="card-body">
+              <span class="tag">09 a 14/06</span>
+              <h3>Foz do Iguaçu</h3>
+              <p class="muted">Cataratas do lado brasileiro e argentino, Itaipu, Parque das Aves, Marco das Três Fronteiras e jantar romântico.</p>
+              <div class="meta"><span class="chip">Natureza</span><span class="chip">Fronteira</span><span class="chip">Romance</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roteiro">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Roteiro completo dia a dia</h2>
+          <p class="lead">Organizado por manhã, tarde e noite, com deslocamentos, gastronomia, curiosidades e dicas de conteúdo para Instagram/TikTok.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Quinta</small><strong>05/06</strong><span>Chegada em Curitiba</span></div>
+            <div>
+              <h3>Primeira noite no Batel</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Deslocamento Brasília → Curitiba.</div>
+                <div class="period"><strong>Tarde</strong>Check-in no Mercure Curitiba Batel e caminhada leve pela região.</div>
+                <div class="period"><strong>Noite</strong>Jantar no Ninna Cozinha ou Bar do Alemão, conforme o ritmo da chegada.</div>
+              </div>
+              <div class="note">Conteúdo: grave o check-in, as ruas do Batel e uma narração: “começando uma viagem de inverno pelo Sul do Brasil”.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Sexta</small><strong>06/06</strong><span>Centro + MON + Livrarias</span></div>
+            <div>
+              <h3>Curitiba histórica e literária</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Centro Histórico, Largo da Ordem, Rua XV e Livraria do Chain.</div>
+                <div class="period"><strong>Tarde</strong>Museu Oscar Niemeyer, conhecido como “Museu do Olho”.</div>
+                <div class="period"><strong>Noite</strong>Café/livraria Arte & Letra e jantar especial no Durski.</div>
+              </div>
+              <div class="note">Curiosidade: o MON é uma das obras mais marcantes de Oscar Niemeyer em Curitiba. Use planos simétricos, arquitetura e transições minimalistas.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Sábado</small><strong>07/06</strong><span>Arquitetura + Natureza</span></div>
+            <div>
+              <h3>Ópera de Arame e Parque Tanguá</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Ópera de Arame e Pedreira Paulo Leminski.</div>
+                <div class="period"><strong>Tarde</strong>Parque Tanguá para o pôr do sol, um dos cenários mais bonitos da cidade.</div>
+                <div class="period"><strong>Noite</strong>Jantar no Batel ou experiência gastronômica mais leve.</div>
+              </div>
+              <div class="note">Curiosidade: a Ópera de Arame foi construída em tempo recorde e rende ótimos vídeos com água, estrutura metálica e vegetação.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Domingo</small><strong>08/06</strong><span>Morretes de trem</span></div>
+            <div>
+              <h3>Serra Verde Express + Barreado</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Ida de trem Curitiba → Morretes pela Serra do Mar.</div>
+                <div class="period"><strong>Tarde</strong>Almoço com barreado, caminhada pelo centro de Morretes e retorno de van.</div>
+                <div class="period"><strong>Noite</strong>Descanso em Curitiba e seleção dos melhores vídeos do trem.</div>
+              </div>
+              <div class="note">Conteúdo: “O passeio de trem mais bonito do Brasil fica no Paraná”. Grave janela, trilhos, mata, túneis, pontes e o prato típico.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Segunda</small><strong>09/06</strong><span>Curitiba → Foz</span></div>
+            <div>
+              <h3>Livraria da Vila + voo para Foz</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Livraria da Vila no Pátio Batel e café no Lucca Cafés Especiais.</div>
+                <div class="period"><strong>Tarde</strong>Voo Curitiba → Foz do Iguaçu. Chegada prevista às 16h45.</div>
+                <div class="period"><strong>Noite</strong>Check-in no Viale Tower Hotel e jantar leve no centro.</div>
+              </div>
+              <div class="note">Dica aérea: escolha janela do lado esquerdo para melhores chances de paisagem natural na chegada a Foz.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Terça</small><strong>10/06</strong><span>Cataratas Brasil</span></div>
+            <div>
+              <h3>Parque Nacional do Iguaçu</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Chegue cedo ao Parque Nacional do Iguaçu.</div>
+                <div class="period"><strong>Tarde</strong>Passarelas, Garganta do Diabo, almoço no Porto Canoas e Macuco Safari opcional.</div>
+                <div class="period"><strong>Noite</strong>Rooftop do Viale Tower ou jantar tranquilo.</div>
+              </div>
+              <div class="note">Curiosidade: as Cataratas têm mais de 275 quedas d’água. Use áudio épico, slow motion e plano de costas para um reel cinematográfico.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Quarta</small><strong>11/06</strong><span>Cataratas Argentina</span></div>
+            <div>
+              <h3>Puerto Iguazú e circuito argentino</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Travessia para Argentina e início dos circuitos.</div>
+                <div class="period"><strong>Tarde</strong>Circuito Superior, Inferior e trem ecológico.</div>
+                <div class="period"><strong>Noite</strong>Jantar romântico no Aqva ou La Rueda 1975.</div>
+              </div>
+              <div class="note">Storytelling: “Brasil mostra o panorama; Argentina coloca você dentro da força das quedas”.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Quinta</small><strong>12/06</strong><span>Dia dos Namorados</span></div>
+            <div>
+              <h3>Itaipu, Parque das Aves e pôr do sol</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Visita à Itaipu Binacional.</div>
+                <div class="period"><strong>Tarde</strong>Parque das Aves, com araras, tucanos e Mata Atlântica.</div>
+                <div class="period"><strong>Noite</strong>Marco das Três Fronteiras + jantar no Cabeza de Vaca ou Rafain.</div>
+              </div>
+              <div class="note">Legenda: “Energia que move países e uma viagem feita para virar memória”.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Sexta</small><strong>13/06</strong><span>Dia livre</span></div>
+            <div>
+              <h3>Compras, cultura ou descanso</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Ciudad del Este para compras ou Templo Budista Chen Tien.</div>
+                <div class="period"><strong>Tarde</strong>Refúgio Biológico, café, descanso ou revisão de conteúdo.</div>
+                <div class="period"><strong>Noite</strong>Último jantar em Foz ou drinks no rooftop do hotel.</div>
+              </div>
+              <div class="note">Conteúdo: faça um carrossel “O que fazer em Foz além das Cataratas”.</div>
+            </div>
+          </article>
+
+          <article class="day-card reveal">
+            <div class="date-badge"><small>Sábado</small><strong>14/06</strong><span>Foz → Brasília</span></div>
+            <div>
+              <h3>Retorno para casa</h3>
+              <div class="periods">
+                <div class="period"><strong>Manhã</strong>Café da manhã, organização das malas e últimos registros.</div>
+                <div class="period"><strong>Tarde</strong>Deslocamento para o aeroporto conforme horário do voo.</div>
+                <div class="period"><strong>Noite</strong>Chegada em Brasília.</div>
+              </div>
+              <div class="note">Feche a viagem com um vídeo-resumo: Curitiba literária, Morretes de trem e Foz cinematográfica.</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="hoteis">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Hotéis reais da viagem</h2>
+          <p class="lead">Bases escolhidas para unir boa localização, conforto, deslocamentos práticos e estética para conteúdo.</p>
+        </div>
+        <div class="grid grid-2">
+          <article class="card reveal">
+            <img class="card-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85" alt="Hotel em Curitiba">
+            <div class="card-body">
+              <span class="tag">Curitiba · Batel</span>
+              <h3>Mercure Curitiba Batel</h3>
+              <p class="muted">Hotel confortável e bem localizado no Batel, ideal para explorar cafés, restaurantes, livrarias e pontos turísticos com praticidade.</p>
+              <div class="meta"><span class="chip">Boa localização</span><span class="chip">Casal</span><span class="chip">Batel</span></div>
+              <p><strong>Faixa estimada:</strong> intermediária, variando conforme antecedência e ocupação.</p>
+              <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Mercure+Curitiba+Batel">Abrir no Google Maps</a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <img class="card-img" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=85" alt="Hotel em Foz do Iguaçu">
+            <div class="card-body">
+              <span class="tag">Foz do Iguaçu · Centro</span>
+              <h3>Viale Tower Hotel</h3>
+              <p class="muted">Base central, com rooftop, piscina e ótimo custo-benefício para acessar Cataratas, Itaipu, Marco das Três Fronteiras e restaurantes.</p>
+              <div class="meta"><span class="chip">Rooftop</span><span class="chip">R$300–600</span><span class="chip">Custo-benefício</span></div>
+              <p><strong>Faixa estimada:</strong> R$300 a R$600 por diária, conforme data e tipo de quarto.</p>
+              <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Viale+Tower+Hotel+Foz+do+Igua%C3%A7u">Abrir no Google Maps</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="morretes">
+      <div class="wrap grid grid-2">
+        <article class="card feature reveal" style="background-image: linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.72)), url('https://images.unsplash.com/photo-1532105956626-9569c03602f6?auto=format&fit=crop&w=1400&q=85');">
+          <div>
+            <span class="tag">Passeio cênico</span>
+            <h3>Curitiba → Morretes de trem</h3>
+            <p>Ida pela Serra Verde Express, volta de van e almoço com barreado. Um dos passeios ferroviários mais bonitos do Brasil.</p>
+          </div>
+        </article>
+        <div class="reveal">
+          <h2>Serra do Mar em modo cinema</h2>
+          <p class="lead">O passeio de trem atravessa trechos de Mata Atlântica, pontes, túneis, vales e paisagens históricas. Para a viagem de vocês, a melhor configuração é ida de trem e retorno de van, com a Rota do Sol Turismo como alternativa mais econômica.</p>
+          <div class="grid" style="margin-top:22px;">
+            <div class="creator-card"><h4>Empresa</h4><p><strong>Rota do Sol Turismo</strong> com passeio utilizando o trem da Serra Verde Express.</p></div>
+            <div class="creator-card"><h4>Formato recomendado</h4><p><strong>Ida de trem + volta de van</strong>, evitando repetir o trajeto e economizando tempo.</p></div>
+            <div class="creator-card"><h4>Gastronomia</h4><p>Prove o <strong>barreado</strong>, prato típico paranaense servido tradicionalmente em Morretes.</p></div>
+            <div class="creator-card"><h4>Conteúdo</h4><p>Gancho: <strong>“O passeio de trem mais bonito do Brasil fica no Paraná.”</strong></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="literary" id="literaria">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Curitiba literária</h2>
+          <p class="lead">Uma seção especial para transformar Curitiba em um roteiro de cultura, cafés, livros e estética de inverno.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card reveal">
+            <div class="card-body">
+              <span class="tag">Café + Livraria</span>
+              <h3>Arte & Letra</h3>
+              <p class="muted">Livraria, café e editora com ambiente intimista. Perfeita para fotos com café, livros e luz quente.</p>
+              <div class="meta"><span class="chip">Batel/Centro</span><span class="chip">Instagramável</span></div>
+              <a class="btn small gold" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Arte+e+Letra+Curitiba">Abrir no Google Maps</a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="card-body">
+              <span class="tag">Tradicional</span>
+              <h3>Livraria do Chain</h3>
+              <p class="muted">Uma das livrarias mais tradicionais de Curitiba, muito associada ao público universitário e aos livros difíceis de encontrar.</p>
+              <div class="meta"><span class="chip">Centro</span><span class="chip">História</span></div>
+              <a class="btn small gold" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Livraria+do+Chain+Curitiba">Abrir no Google Maps</a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="card-body">
+              <span class="tag">Moderna</span>
+              <h3>Livraria da Vila</h3>
+              <p class="muted">No Pátio Batel, combina design, curadoria e pausa agradável antes do voo para Foz.</p>
+              <div class="meta"><span class="chip">Pátio Batel</span><span class="chip">Design</span></div>
+              <a class="btn small gold" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Livraria+da+Vila+Patio+Batel+Curitiba">Abrir no Google Maps</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gastronomia">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Restaurantes, cafés e bares</h2>
+          <p class="lead">Curadoria gastronômica para combinar romance, identidade local, experiências de fronteira e bons cenários para conteúdo.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="creator-card reveal">
+            <span class="tag">Curitiba</span>
+            <h3>Durski</h3>
+            <p><strong>Perfil:</strong> jantar especial, sofisticado e romântico.</p>
+            <p><strong>Melhor momento:</strong> noite do dia 06/06.</p>
+            <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Durski+Curitiba">Abrir no Google Maps</a>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Curitiba</span>
+            <h3>Ninna Cozinha</h3>
+            <p><strong>Perfil:</strong> italiano intimista, ótimo para primeira noite.</p>
+            <p><strong>Melhor momento:</strong> jantar de chegada.</p>
+            <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Ninna+Cozinha+Curitiba">Abrir no Google Maps</a>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Curitiba</span>
+            <h3>Lucca Cafés Especiais</h3>
+            <p><strong>Perfil:</strong> café especial, pausa charmosa e conteúdo lifestyle.</p>
+            <p><strong>Melhor momento:</strong> manhã do dia 09/06.</p>
+            <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Lucca+Caf%C3%A9s+Especiais+Curitiba">Abrir no Google Maps</a>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Puerto Iguazú</span>
+            <h3>Aqva</h3>
+            <p><strong>Perfil:</strong> jantar romântico e gastronômico no lado argentino.</p>
+            <p><strong>Melhor momento:</strong> após Cataratas Argentina.</p>
+            <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Aqva+Restaurant+Puerto+Iguazu">Abrir no Google Maps</a>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Foz</span>
+            <h3>Cabeza de Vaca</h3>
+            <p><strong>Perfil:</strong> jantar junto ao Marco das Três Fronteiras.</p>
+            <p><strong>Melhor momento:</strong> Dia dos Namorados.</p>
+            <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Cabeza+de+Vaca+Foz+do+Igua%C3%A7u">Abrir no Google Maps</a>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Foz</span>
+            <h3>Rafain Churrascaria Show</h3>
+            <p><strong>Perfil:</strong> churrasco com apresentação cultural.</p>
+            <p><strong>Melhor momento:</strong> noite temática em Foz.</p>
+            <a class="btn small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Rafain+Churrascaria+Show+Foz">Abrir no Google Maps</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="conteudo">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Instagram/TikTok Mode</h2>
+          <p class="lead">Cards prontos com hooks, cenas, legendas e storytelling para transformar cada parte da viagem em conteúdo.</p>
+        </div>
+        <div class="grid grid-2">
+          <article class="creator-card reveal">
+            <span class="tag">Reel 1 · Curitiba</span>
+            <h3>“Curitiba parece Europa no inverno?”</h3>
+            <p><strong>Cenas:</strong> Batel, cafés, livrarias, Jardim Botânico, MON e Parque Tanguá.</p>
+            <p><strong>Storytelling:</strong> mostre a cidade como um destino de frio, cultura e arquitetura.</p>
+            <div class="script">Narração: “Curitiba tem um lado literário, elegante e friozinho que combina muito com uma viagem a dois.”</div>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Reel 2 · Morretes</span>
+            <h3>“O trem mais bonito do Brasil?”</h3>
+            <p><strong>Cenas:</strong> estação, janela do trem, Mata Atlântica, túneis, pontes, barreado.</p>
+            <p><strong>Storytelling:</strong> destaque a ferrovia histórica e a experiência de descer a Serra do Mar.</p>
+            <div class="script">Legenda: “Entre trilhos, neblina e Mata Atlântica: um domingo cinematográfico no Paraná.”</div>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Reel 3 · Foz</span>
+            <h3>“O som que arrepia”</h3>
+            <p><strong>Cenas:</strong> arco-íris, névoa, passarelas, Garganta do Diabo e plano de costas.</p>
+            <p><strong>Storytelling:</strong> venda a sensação física de estar diante das Cataratas.</p>
+            <div class="script">Hook: “Nenhum vídeo prepara você para o som das Cataratas do Iguaçu.”</div>
+          </article>
+          <article class="creator-card reveal">
+            <span class="tag">Reel 4 · Romance</span>
+            <h3>“Dia dos Namorados na tríplice fronteira”</h3>
+            <p><strong>Cenas:</strong> Itaipu, Parque das Aves, pôr do sol no Marco, jantar e brinde.</p>
+            <p><strong>Storytelling:</strong> combine energia, natureza, fronteira e romance.</p>
+            <div class="script">Legenda: “Entre Brasil, Argentina e Paraguai, a gente escolheu colecionar momentos.”</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="mapa">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Mapa interativo real</h2>
+          <p class="lead">Hotéis, atrações, restaurantes, livrarias, aeroporto e Morretes em um mapa Leaflet com botão para abrir cada ponto no Google Maps.</p>
+        </div>
+        <div id="map" class="reveal"></div>
+      </div>
+    </section>
+
+    <section id="custos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Custos estimados</h2>
+          <p class="lead">Estimativa para casal, sem incluir passagens aéreas. Valores podem variar conforme reservas, câmbio na Argentina/Paraguai e estilo de consumo.</p>
+        </div>
+        <table class="cost-table reveal">
+          <thead>
+            <tr><th>Categoria</th><th>Estimativa casal</th><th>Observação</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Hospedagem</td><td>R$ 3.500 a R$ 6.500</td><td>Mercure Curitiba Batel + Viale Tower Hotel.</td></tr>
+            <tr><td>Alimentação</td><td>R$ 2.000 a R$ 4.000</td><td>Inclui cafés, almoços, jantares especiais e experiências gastronômicas.</td></tr>
+            <tr><td>Passeios</td><td>R$ 1.800 a R$ 3.500</td><td>Cataratas, Argentina, Itaipu, Parque das Aves e Morretes.</td></tr>
+            <tr><td>Transporte local</td><td>R$ 700 a R$ 1.300</td><td>Uber, traslados, van Morretes e deslocamentos urbanos.</td></tr>
+            <tr><td><strong>Total estimado</strong></td><td><strong>R$ 8.000 a R$ 15.300</strong></td><td>Perfil confortável, com alguns jantares especiais.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="extras">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Extras inteligentes</h2>
+          <p class="lead">Checklist, clima, horários de foto e pôr do sol para fechar o planejamento.</p>
+        </div>
+        <div class="grid grid-4">
+          <div class="creator-card reveal"><h4>Checklist</h4><p>Casaco leve, corta-vento, tênis confortável, roupa em camadas, capa de chuva, power bank, documentos para Argentina e cartão internacional.</p></div>
+          <div class="creator-card reveal"><h4>Clima em junho</h4><p>Curitiba pode ter frio e garoa. Foz tende a ser mais seca e agradável, com menos chuva que no verão.</p></div>
+          <div class="creator-card reveal"><h4>Melhores fotos</h4><p>Curitiba: manhã e fim de tarde. Morretes: janela do trem. Foz: manhã nas Cataratas e pôr do sol no Marco.</p></div>
+          <div class="creator-card reveal"><h4>Melhores pores do sol</h4><p>Parque Tanguá, Marco das Três Fronteiras e rooftop do Viale Tower Hotel.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-band">
+      <p class="quote reveal">“Uma viagem boa não é só sobre chegar aos lugares. É sobre transformar cada parada em memória, história e cena.”</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div>
+        <strong>Roteiro de André e Ricardo</strong>
+        <p>Curitiba · Morretes · Foz do Iguaçu · 05 a 14 de junho</p>
+      </div>
+      <a class="btn secondary" href="#top">Voltar ao topo</a>
+    </div>
+  </footer>
+
+  <script>
+    const places = [
+      { name: 'Mercure Curitiba Batel', type: 'Hotel', lat: -25.4446, lng: -49.2877, q: 'Mercure Curitiba Batel' },
+      { name: 'Jardim Botânico de Curitiba', type: 'Atração', lat: -25.4421, lng: -49.2389, q: 'Jardim Botanico de Curitiba' },
+      { name: 'Museu Oscar Niemeyer', type: 'Cultura', lat: -25.4109, lng: -49.2666, q: 'Museu Oscar Niemeyer Curitiba' },
+      { name: 'Ópera de Arame', type: 'Atração', lat: -25.3847, lng: -49.2766, q: 'Opera de Arame Curitiba' },
+      { name: 'Parque Tanguá', type: 'Pôr do sol', lat: -25.3796, lng: -49.2827, q: 'Parque Tangua Curitiba' },
+      { name: 'Livraria do Chain', type: 'Livraria', lat: -25.4282, lng: -49.2628, q: 'Livraria do Chain Curitiba' },
+      { name: 'Arte & Letra', type: 'Livraria + Café', lat: -25.4361, lng: -49.2827, q: 'Arte e Letra Curitiba' },
+      { name: 'Livraria da Vila - Pátio Batel', type: 'Livraria', lat: -25.4443, lng: -49.3008, q: 'Livraria da Vila Patio Batel Curitiba' },
+      { name: 'Lucca Cafés Especiais', type: 'Café', lat: -25.4358, lng: -49.2816, q: 'Lucca Cafes Especiais Curitiba' },
+      { name: 'Durski', type: 'Restaurante', lat: -25.4265, lng: -49.2721, q: 'Durski Curitiba' },
+      { name: 'Ninna Cozinha', type: 'Restaurante', lat: -25.4450, lng: -49.2865, q: 'Ninna Cozinha Curitiba' },
+      { name: 'Estação Ferroviária de Curitiba', type: 'Trem para Morretes', lat: -25.4385, lng: -49.2606, q: 'Estacao Ferroviaria Curitiba Serra Verde Express' },
+      { name: 'Morretes', type: 'Cidade histórica', lat: -25.4756, lng: -48.8345, q: 'Morretes Parana' },
+      { name: 'Viale Tower Hotel', type: 'Hotel', lat: -25.5449, lng: -54.5876, q: 'Viale Tower Hotel Foz do Iguacu' },
+      { name: 'Aeroporto de Foz do Iguaçu', type: 'Aeroporto', lat: -25.6003, lng: -54.4850, q: 'Aeroporto Internacional de Foz do Iguacu' },
+      { name: 'Cataratas do Iguaçu', type: 'Atração', lat: -25.6953, lng: -54.4367, q: 'Cataratas do Iguacu' },
+      { name: 'Parque das Aves', type: 'Atração', lat: -25.6136, lng: -54.4810, q: 'Parque das Aves Foz do Iguacu' },
+      { name: 'Itaipu Binacional', type: 'Atração', lat: -25.4085, lng: -54.5882, q: 'Itaipu Binacional' },
+      { name: 'Marco das Três Fronteiras', type: 'Pôr do sol', lat: -25.5906, lng: -54.5882, q: 'Marco das Tres Fronteiras Foz' },
+      { name: 'Aqva Restaurant', type: 'Restaurante', lat: -25.6005, lng: -54.5727, q: 'Aqva Restaurant Puerto Iguazu' },
+      { name: 'Cabeza de Vaca', type: 'Restaurante', lat: -25.5908, lng: -54.5881, q: 'Cabeza de Vaca Foz do Iguacu' },
+      { name: 'Rafain Churrascaria Show', type: 'Restaurante', lat: -25.5474, lng: -54.5592, q: 'Rafain Churrascaria Show Foz' }
+    ];
+
+    const categoryColors = {
+      'Hotel': '#173f33',
+      'Atração': '#1b5267',
+      'Cultura': '#a65942',
+      'Pôr do sol': '#c79a45',
+      'Livraria': '#6b4c9a',
+      'Livraria + Café': '#6b4c9a',
+      'Café': '#8a5a2b',
+      'Restaurante': '#9a3f2d',
+      'Trem para Morretes': '#285a48',
+      'Cidade histórica': '#c79a45',
+      'Aeroporto': '#40546b'
+    };
+
+    function createIcon(type) {
+      const color = categoryColors[type] || '#173f33';
+      return L.divIcon({
+        className: '',
+        html: `<div style="width:32px;height:32px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 8px 22px rgba(0,0,0,.25);display:grid;place-items:center;color:white;font-weight:900;font-size:14px;">✦</div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      });
+    }
+
+    const map = L.map('map', { scrollWheelZoom: false }).setView([-25.32, -51.2], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    const bounds = [];
+    places.forEach(place => {
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.q)}`;
+      bounds.push([place.lat, place.lng]);
+      L.marker([place.lat, place.lng], { icon: createIcon(place.type) })
+        .addTo(map)
+        .bindPopup(`
+          <div class="popup-title">${place.name}</div>
+          <div class="popup-type">${place.type}</div>
+          <a class="popup-btn" href="${mapsUrl}" target="_blank" rel="noopener">Abrir no Google Maps</a>
+        `);
+    });
+    map.fitBounds(bounds, { padding: [28, 28] });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: .12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
