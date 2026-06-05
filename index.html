@@ -421,18 +421,28 @@
       position: relative;
       z-index: 0;
     }
-
-    .creator {
-      display: none;
-    }
-
-    body.creator-on .creator {
+    .content-guide {
       display: grid;
     }
 
-    body.creator-on .creator-highlight {
-      outline: 2px solid rgba(184,144,91,.45);
-      box-shadow: 0 0 0 6px rgba(184,144,91,.12), var(--shadow);
+    .shot-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .shot-list li {
+      margin: 4px 0;
+    }
+
+    .insta-tip {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(184,144,91,.13);
+      border: 1px solid rgba(184,144,91,.22);
+      color: #6e4f2d;
+      font-weight: 700;
+      margin-top: 12px;
     }
 
     .bottom-nav {
@@ -534,6 +544,7 @@
       <a href="#roteiro">Roteiro</a>
       <a href="#mapa">Mapa</a>
       <a href="#gastronomia">Gastronomia</a>
+      <a href="#conteudo">Conteúdo</a>
       <a href="#reservas">Reservas</a>
     </div>
   </nav>
@@ -546,7 +557,7 @@
       <div class="actions">
         <a class="btn secondary" href="#roteiro">📍 Ver roteiro</a>
         <a class="btn ghost" href="#mapa">🗺️ Abrir mapa</a>
-        <button class="btn gold" id="creatorToggleTop" type="button">📱 Creator Mode</button>
+        <a class="btn gold" href="#conteudo">📸 Instagram & TikTok</a>
       </div>
     </div>
   </header>
@@ -638,7 +649,7 @@
           <div class="info-list">
             <div class="info"><b>Como ir</b>Uber ou táxi do aeroporto até o hotel.</div>
             <div class="info"><b>Reservas</b>Reservar jantar se escolher restaurante mais disputado.</div>
-            <div class="info creator-highlight"><b>Conteúdo</b>Chegada, hotel, ruas do Batel e primeiro jantar.</div>
+            <div class="info"><b>Conteúdo</b>Chegada, hotel, ruas do Batel e primeiro jantar.</div>
             <div class="info"><b>Hook</b>“Começando uma viagem de inverno pelo Sul do Brasil…”</div>
           </div>
         </div>
@@ -659,7 +670,7 @@
           <div class="info-list">
             <div class="info"><b>Reservar</b>Sim, com antecedência.</div>
             <div class="info"><b>Curiosidade</b>O MON é conhecido como Museu do Olho.</div>
-            <div class="info creator-highlight"><b>Conteúdo</b>“Curitiba é muito mais bonita do que dizem.”</div>
+            <div class="info"><b>Conteúdo</b>“Curitiba é muito mais bonita do que dizem.”</div>
             <div class="info"><b>Melhor foto</b>Estufa do Jardim Botânico e pôr do sol no Tanguá.</div>
           </div>
         </div>
@@ -681,7 +692,7 @@
             <div class="info"><b>Melhor lado</b>Esquerdo na ida Curitiba → Morretes.</div>
             <div class="info"><b>Melhor assento</b>Janela.</div>
             <div class="info"><b>Restaurantes</b>Madalozo ou Ponte Velha.</div>
-            <div class="info creator-highlight"><b>Hook</b>“O passeio de trem mais bonito do Brasil fica no Paraná.”</div>
+            <div class="info"><b>Hook</b>“O passeio de trem mais bonito do Brasil fica no Paraná.”</div>
           </div>
         </div>
       </details>
@@ -702,7 +713,7 @@
             <div class="info friend-card"><b>Dica do Fred</b>Restaurante da Porpeta e Cantina do Délio.</div>
             <div class="info friend-card"><b>Obrigatório</b>Experimentar a Banoffee da Cantina do Délio.</div>
             <div class="info"><b>Como ir</b>Uber entre os pontos para reduzir deslocamentos.</div>
-            <div class="info creator-highlight"><b>Hook</b>“Curitiba também é uma cidade para quem ama livros, cafés e história.”</div>
+            <div class="info"><b>Hook</b>“Curitiba também é uma cidade para quem ama livros, cafés e história.”</div>
           </div>
         </div>
       </details>
@@ -722,7 +733,7 @@
           <div class="info-list">
             <div class="info"><b>Dica de avião</b>Tentar janela do lado esquerdo.</div>
             <div class="info"><b>Como ir</b>Uber/táxi do aeroporto de Foz até o hotel.</div>
-            <div class="info creator-highlight"><b>Conteúdo</b>Chegada em Foz, aeroporto, caminho e rooftop do hotel.</div>
+            <div class="info"><b>Conteúdo</b>Chegada em Foz, aeroporto, caminho e rooftop do hotel.</div>
             <div class="info"><b>Hook</b>“Chegamos na terra das Cataratas.”</div>
           </div>
         </div>
@@ -745,7 +756,7 @@
             <div class="info"><b>Como ir</b>Uber, táxi, transfer turístico ou agência local.</div>
             <div class="info"><b>Dentro do parque</b>Usar o ônibus interno oficial.</div>
             <div class="info"><b>Reservas</b>Comprar Cataratas, Parque das Aves e Macuco antes.</div>
-            <div class="info creator-highlight"><b>Hook</b>“Você consegue ouvir a força da natureza?”</div>
+            <div class="info"><b>Hook</b>“Você consegue ouvir a força da natureza?”</div>
           </div>
         </div>
       </details>
@@ -766,7 +777,7 @@
             <div class="info"><b>Como ir</b>Uber, transfer ou agência local.</div>
             <div class="info"><b>Reservas</b>Comprar Itaipu Panorâmica e reservar restaurante.</div>
             <div class="info"><b>Curiosidade</b>O passeio inclui mirantes e é feito em ônibus.</div>
-            <div class="info creator-highlight"><b>Hook</b>“A força da engenharia no meio da fronteira.”</div>
+            <div class="info"><b>Hook</b>“A força da engenharia no meio da fronteira.”</div>
           </div>
         </div>
       </details>
@@ -787,7 +798,7 @@
             <div class="info"><b>Restaurantes</b>Cabeza de Vaca, Rafain ou jantar no próprio Marco.</div>
             <div class="info"><b>Reservas</b>Comprar ingresso e reservar jantar com antecedência.</div>
             <div class="info"><b>Como ir</b>Uber ou transfer.</div>
-            <div class="info creator-highlight"><b>Hook</b>“Três países, um pôr do sol e o nosso Dia dos Namorados.”</div>
+            <div class="info"><b>Hook</b>“Três países, um pôr do sol e o nosso Dia dos Namorados.”</div>
           </div>
         </div>
       </details>
@@ -808,7 +819,7 @@
             <div class="info friend-card"><b>Dica do Fábio</b>Monalisa: perfumes, cosméticos, bebidas e eletrônicos premium.</div>
             <div class="info"><b>Cuidados</b>Levar RG/passaporte, evitar ambulantes, guardar notas e conferir cota.</div>
             <div class="info"><b>Puerto Iguazú</b>Aqva Restaurant, De La Fonte ou El Quincho del Tío Querido.</div>
-            <div class="info creator-highlight"><b>Hook</b>“Você sabia que dá para jantar na Argentina e dormir no Brasil?”</div>
+            <div class="info"><b>Hook</b>“Você sabia que dá para jantar na Argentina e dormir no Brasil?”</div>
           </div>
         </div>
       </details>
@@ -827,7 +838,7 @@
           </div>
           <div class="info-list">
             <div class="info"><b>Como ir</b>Uber/táxi até o aeroporto.</div>
-            <div class="info creator-highlight"><b>Hook</b>“Fechando uma viagem de natureza, cultura e boas experiências.”</div>
+            <div class="info"><b>Hook</b>“Fechando uma viagem de natureza, cultura e boas experiências.”</div>
           </div>
         </div>
       </details>
@@ -920,21 +931,141 @@
       </div>
     </section>
 
-    <section id="creator">
+    <section id="conteudo">
       <div class="section-head">
-        <h2>Creator Mode</h2>
-        <p>Ative o botão “Creator” para destacar ideias de conteúdo ao longo do site. Abaixo, os principais roteiros de Reels.</p>
+        <h2>Instagram & TikTok</h2>
+        <p>Guia objetivo de conteúdo para a viagem, com melhor horário, ideia de Reels, gancho e cenas que valem gravar.</p>
       </div>
-      <div class="grid grid-3 creator">
-        <article class="card pad"><span class="tag">Reel</span><h3>Curitiba em 1 minuto</h3><p>Hook: “Curitiba é muito mais bonita do que dizem.”</p></article>
-        <article class="card pad"><span class="tag">Reel</span><h3>Curitiba Literária</h3><p>Hook: “Um roteiro para quem ama livros, cafés e friozinho.”</p></article>
-        <article class="card pad"><span class="tag">Reel</span><h3>Trem para Morretes</h3><p>Hook: “O passeio de trem mais bonito do Brasil.”</p></article>
-        <article class="card pad"><span class="tag">Reel</span><h3>Cataratas</h3><p>Hook: “Você consegue ouvir a força da natureza?”</p></article>
-        <article class="card pad"><span class="tag">Reel</span><h3>Marco</h3><p>Hook: “Três países, um pôr do sol.”</p></article>
-        <article class="card pad"><span class="tag">Reel</span><h3>Noite Argentina</h3><p>Hook: “Jantar na Argentina e dormir no Brasil.”</p></article>
+
+      <div class="grid grid-3 content-guide">
+        <article class="card pad">
+          <span class="tag">Curitiba</span>
+          <h3>Curitiba em 1 minuto</h3>
+          <p><b>Hook:</b> “Curitiba é muito mais bonita do que dizem.”</p>
+          <p><b>Melhor horário:</b> manhã e fim de tarde.</p>
+          <ul class="shot-list">
+            <li>Estufa do Jardim Botânico</li>
+            <li>Fachada do MON</li>
+            <li>Passarela da Ópera de Arame</li>
+            <li>Pôr do sol no Parque Tanguá</li>
+          </ul>
+          <div class="insta-tip">Legenda: “Um dia entre arquitetura, jardim e friozinho em Curitiba.”</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Curitiba Literária</span>
+          <h3>Livros, cafés e história</h3>
+          <p><b>Hook:</b> “Um roteiro para quem ama livros, cafés e friozinho.”</p>
+          <p><b>Melhor horário:</b> tarde.</p>
+          <ul class="shot-list">
+            <li>Arte & Letra com café</li>
+            <li>Livraria do Chain</li>
+            <li>Livraria da Vila no Pátio Batel</li>
+            <li>Banoffee da Cantina do Délio</li>
+          </ul>
+          <div class="insta-tip">Narração: “Curitiba também pode ser uma viagem literária.”</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Morretes</span>
+          <h3>Trem pela Serra do Mar</h3>
+          <p><b>Hook:</b> “O passeio de trem mais bonito do Brasil fica no Paraná.”</p>
+          <p><b>Melhor horário:</b> durante a ida de trem.</p>
+          <ul class="shot-list">
+            <li>Estação ferroviária</li>
+            <li>Janela do lado esquerdo</li>
+            <li>Túneis e pontes</li>
+            <li>Barreado em Morretes</li>
+          </ul>
+          <div class="insta-tip">Dica: grave em 60fps pela janela e faça cortes curtos.</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Cataratas</span>
+          <h3>A força da natureza</h3>
+          <p><b>Hook:</b> “Você consegue ouvir a força da natureza?”</p>
+          <p><b>Melhor horário:</b> 9h às 11h.</p>
+          <ul class="shot-list">
+            <li>Névoa das quedas</li>
+            <li>Passarela</li>
+            <li>Arco-íris</li>
+            <li>Reação do casal</li>
+          </ul>
+          <div class="insta-tip">Legenda: “É impossível sair igual depois de ver as Cataratas de perto.”</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Itaipu</span>
+          <h3>Engenharia na fronteira</h3>
+          <p><b>Hook:</b> “A força da engenharia no meio da fronteira.”</p>
+          <p><b>Melhor horário:</b> manhã.</p>
+          <ul class="shot-list">
+            <li>Mirante Central</li>
+            <li>Ônibus da visita</li>
+            <li>Barragem ao fundo</li>
+            <li>Detalhes dos tubos brancos</li>
+          </ul>
+          <div class="insta-tip">Narração: “Itaipu impressiona pelo tamanho e pela história.”</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Dia dos Namorados</span>
+          <h3>Marco das Três Fronteiras</h3>
+          <p><b>Hook:</b> “Três países, um pôr do sol e o nosso Dia dos Namorados.”</p>
+          <p><b>Melhor horário:</b> fim de tarde.</p>
+          <ul class="shot-list">
+            <li>Pôr do sol</li>
+            <li>Encontro dos rios</li>
+            <li>Show cultural</li>
+            <li>Brinde do casal</li>
+          </ul>
+          <div class="insta-tip">Legenda: “Brasil, Argentina e Paraguai no mesmo horizonte.”</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Paraguai</span>
+          <h3>Compras sem perrengue</h3>
+          <p><b>Hook:</b> “Como comprar no Paraguai com segurança.”</p>
+          <p><b>Melhor horário:</b> manhã.</p>
+          <ul class="shot-list">
+            <li>Travessia para Ciudad del Este</li>
+            <li>Shopping China</li>
+            <li>Cellshop</li>
+            <li>Monalisa, dica do Fábio</li>
+          </ul>
+          <div class="insta-tip">Dica: grave dicas práticas, mas evite expor compras caras.</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Puerto Iguazú</span>
+          <h3>Noite argentina</h3>
+          <p><b>Hook:</b> “Jantar na Argentina e dormir no Brasil.”</p>
+          <p><b>Melhor horário:</b> 19h às 22h.</p>
+          <ul class="shot-list">
+            <li>Travessia da fronteira</li>
+            <li>Taça de vinho argentino</li>
+            <li>Parrilla ou empanadas</li>
+            <li>Rua iluminada à noite</li>
+          </ul>
+          <div class="insta-tip">Legenda: “Uma noite argentina no meio da viagem por Foz.”</div>
+        </article>
+
+        <article class="card pad">
+          <span class="tag">Dicas dos amigos</span>
+          <h3>Experiências locais</h3>
+          <p><b>Hook:</b> “Quando amigos indicam, a experiência muda.”</p>
+          <p><b>Melhor horário:</b> conforme a refeição.</p>
+          <ul class="shot-list">
+            <li>Porpeta em Curitiba</li>
+            <li>Banoffee da Cantina do Délio</li>
+            <li>Monalisa em Ciudad del Este</li>
+            <li>Jantar em Puerto Iguazú</li>
+          </ul>
+          <div class="insta-tip">Formato: carrossel “dicas que recebemos e testamos”.</div>
+        </article>
       </div>
-      <div class="notice" id="creatorNote">Toque em “Creator Mode” para ativar os destaques de conteúdo.</div>
     </section>
+
 
     <section id="mapa">
       <div class="section-head">
@@ -976,7 +1107,7 @@
   <nav class="bottom-nav" aria-label="Menu mobile">
     <a href="#roteiro"><span>📍</span>Roteiro</a>
     <a href="#mapa"><span>🗺️</span>Mapa</a>
-    <button id="creatorToggleBottom" type="button"><span>📱</span>Creator</button>
+    <a href="#conteudo"><span>📸</span>Conteúdo</a>
     <a href="#reservas"><span>⚠️</span>Reservas</a>
   </nav>
 
@@ -1097,20 +1228,6 @@
     });
 
     renderMarkers();
-
-    // ===============================
-    // CREATOR MODE
-    // ===============================
-    function toggleCreator() {
-      document.body.classList.toggle("creator-on");
-      const on = document.body.classList.contains("creator-on");
-      document.getElementById("creatorNote").textContent = on
-        ? "Creator Mode ativado: os pontos com maior potencial de conteúdo estão destacados."
-        : "Toque em “Creator Mode” para ativar os destaques de conteúdo.";
-    }
-
-    document.getElementById("creatorToggleTop").addEventListener("click", toggleCreator);
-    document.getElementById("creatorToggleBottom").addEventListener("click", toggleCreator);
       const span = document.createElement("span");
       span.textContent = item;
       label.appendChild(input);
